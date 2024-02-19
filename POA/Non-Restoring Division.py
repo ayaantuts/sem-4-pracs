@@ -1,6 +1,6 @@
 # To implement the non-restoring division algorithm
 # Ayaan Shaikh - C026 - 12 Feb 2024
-n = 16
+n = 4
 
 def tobin(num:int, n_bits=n):
     """A function that returns the bit representation of a number in desired number of bits (default = 4)"""
