@@ -71,9 +71,9 @@ int main() {
 	calcPW();
 	sortPW();
 	maxProfit = FractionalKnapsack();
-	printf("\nThe max profit is: %.2f in the ratio: ", maxProfit);
+	printf("\nThe max profit is: %.2f in the ratio:\n", maxProfit);
 	// Display the ratio
 	for (i = 0; i < ITEMS; i++)
-		printf("%.2f: %d ", X[i], P[i]);
+		printf("%.2f: %d\n", X[i], P[i]);
 	return 0;
 }
