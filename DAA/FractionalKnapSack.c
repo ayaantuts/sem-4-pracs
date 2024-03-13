@@ -48,7 +48,7 @@ double FractionalKnapsack() {
 	double value = 0;
 	// While the knapsack is not full and there are items left, keep adding items
 	while (i <= ITEMS && U != 0) {
-		// If the weight of the item is less than the remaining capacity, add the whole item
+		// If the weight of the item is less than or equal to the remaining capacity, add the whole item
 		if (W[i] <= U) {
 			X[i] = 1;
 			value += P[i];
