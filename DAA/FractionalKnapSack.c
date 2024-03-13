@@ -16,7 +16,7 @@ void calcPW() {
 }
 
 /**
- * @brief Sort the items based on the profit to weight ratio
+ * @brief Sort the items based on the profit to weight ratio in decreasing order
  * 
  */
 void sortPW() {
@@ -43,14 +43,18 @@ void sortPW() {
  * @return double: The maximum profit
  */
 double FractionalKnapsack() {
+	// U is the remaining capacity of the knapsack
 	int U = kCapacity, i = 0;
 	double value = 0;
+	// While the knapsack is not full and there are items left, keep adding items
 	while (i <= ITEMS && U != 0) {
-		if (W[i] < U) {
+		// If the weight of the item is less than the remaining capacity, add the whole item
+		if (W[i] <= U) {
 			X[i] = 1;
 			value += P[i];
 			U -= W[i];
 		} else {
+			// If the weight of the item is more than the remaining capacity, add a fraction of the item
 			X[i] = (double) U / W[i];
 			value += (double) X[i] * P[i];
 			U = 0;
