@@ -1,0 +1,19 @@
+DATA SEGMENT
+NUM DB 5
+fact DB ?
+DATA ENDS
+CODE SEGMENT
+         ASSUME DS:DATA,CS:CODE
+START:
+      MOV AX,DATA
+      MOV DS,AX
+      MOV AH,00
+      MOV AL,NUM
+ L1:  DEC NUM
+      MUL NUM
+      MOV CL,NUM
+      CMP CL,01
+      JNZ L1
+      MOV fact, AL 
+CODE ENDS
+END START
