@@ -2,18 +2,15 @@
 
 int s = 0, n = 0, e = 4, b[4];
 
-int Wait(int *s)
-{
+int Wait(int *s) {
     return (--*s);
 }
 
-int Signal(int *s)
-{
+int Signal(int *s) {
     return (++*s);
 }
 
-void producer()
-{
+void producer() {
     int a;
 
     printf("\nEnter value to Produce : ");
@@ -28,18 +25,15 @@ void producer()
     Signal(&n);
 
     printf("\nBuffer : ");
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         printf("%d ", b[i]);
     }
     printf("\n");
 }
 
-void consumer()
-{
+void consumer() {
     Wait(&s);
-    for (int i = 1; i < n; i++)
-    {
+    for (int i = 1; i < n; i++) {
         b[i - 1] = b[i];
     }
     Wait(&n);
@@ -48,43 +42,35 @@ void consumer()
 
     printf("\nBuffer : ");
 
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         printf("%d ", b[i]);
     }
     printf("\n");
 }
 
-int main()
-{
+int main() {
     int c;
     printf("Hello\n");
 
-    do
-    {
+    do {
         printf("\n1  -->  Produce\n2  -->  Consume\n3  -->  Exit\n");
         printf("\nEnter your choice : ");
         scanf("%d", &c);
 
-        switch (c)
-        {
+        switch (c) {
         case 1:
-            if (e == 0)
-            {
+            if (e == 0) {
                 printf("\nBuffer is full\n");
             }
-            else
-            {
+            else {
                 producer();
             }
             break;
         case 2:
-            if (e == 4)
-            {
+            if (e == 4) {
                 printf("\nBuffer is empty\n");
             }
-            else
-            {
+            else {
                 consumer();
             }
             break;
