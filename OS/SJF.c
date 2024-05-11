@@ -1,49 +1,76 @@
 #include <stdio.h>
 
-#define N 3
-
-// structure to store process details
-struct Process {
-	int pid;
-	int burst_time;
-	int arrival_time;
-	int waiting_time;
-	int turnaround_time;
-	int completion_time;
-} p[N], temp;
-
 int main() {
-	int awt = 0, atat = 0, time = 0, count = 0, min = 0, min_burst = 0;
-	for (int i = 0; i < N; i++) {
-		printf("Enter the arrival time and burst time for process %d: ", i + 1);
-		scanf("%d %d", &p[i].arrival_time, &p[i].burst_time);
-		p[i].pid = i + 1;
-	}
+  int n = 5;
+  int arrival[] = {1,3,6,7,9};
+  int burst[] = {7,3,2,10,8};
+  int process[n]; 
+  int final[n]; 
+  int visited[n]; 
 
-	// sort the processes based on arrival time
-	for (int i = 0; i < N; i++) {
-		for (int j = i + 1; j < N; j++) {
-			if (p[i].arrival_time > p[j].arrival_time) {
-				temp = p[i];
-				p[i] = p[j];
-				p[j] = temp;
-			}
-		}
-	}
-	// display the Gantt chart
-	printf("\nGantt chart\n");
-	printf("0");
-	for (int i = 0; i < N; i++) {
-		printf(" P%d %d\t", p[i].pid, p[i].completion_time);
-	}
-	// display the process details
-	printf("\nPID\tAT\tBT\tWT\tTAT\tCT\n");
-	for (int i = 0; i < N; i++) {
-		printf("%d\t%d\t%d\t%d\t%d\t%d\n", p[i].pid, p[i].arrival_time, p[i].burst_time, p[i].waiting_time, p[i].turnaround_time, p[i].completion_time);
-	}
-	// calculate the average waiting time and average turnaround time
-	printf("Average waiting time: %f\n", (float)awt / N);
-	printf("Average turnaround time: %f\n", (float)atat / N);
+  
+  for (int i = 0; i < n; i++) {
+    process[i] = i + 1;
+    visited[i] = 0;
+  }
 
-	return 0;
+
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = i + 1; j < n; j++) {
+      if (arrival[i] > arrival[j]) {
+        
+        int temp = arrival[i];
+        arrival[i] = arrival[j];
+        arrival[j] = temp;
+
+        temp = burst[i];
+        burst[i] = burst[j];
+        burst[j] = temp;
+
+        temp = process[i];
+        process[i] = process[j];
+        process[j] = temp;
+      }
+    }
+  }
+
+  int current_time = 0; 
+  int completed = 0;
+int completion_time[n];
+  int turn_around_time[n];
+  int waiting_time[n];
+  current_time+=arrival[0];
+  while (completed < n) {
+    int min_burst = 1000; 
+    int min_index = -1; 
+
+  
+    for (int i = 0; i < n; i++) {
+      if (visited[i] == 0 && arrival[i] <= current_time && burst[i] < min_burst) {
+        min_burst = burst[i];
+        min_index = i;
+      }
+    }
+     completion_time[min_index] = current_time + burst[min_index];
+      turn_around_time[min_index] = completion_time[min_index] - arrival[min_index];
+      waiting_time[min_index] = turn_around_time[min_index] - burst[min_index];
+      final[completed] = process[min_index];
+      printf("%d\n", final[completed]);
+      visited[min_index] = 1;
+
+      current_time += burst[min_index];
+      completed++;
+    
+  }
+
+  
+ 
+ printf("Process\tAT\tBT\tCT\tTAT\tWT\n");
+  for (int i = 0; i < n; i++) {
+    printf("P%d\t%d\t%d\t%d\t%d\t%d\n", process[i], arrival[i], burst[i], completion_time[i],
+           turn_around_time[i], waiting_time[i]);
+  }
+  printf("\n");
+
+  return 0;
 }
